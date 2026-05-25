@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kora Hub — 3 direções de design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #07101F;
+    --bg-base: #0B1426;
+    --bg-elev: #131F38;
+    --border: #1B2A47;
+    --border-soft: #16243E;
+    --text: #E8EDF7;
+    --text-mute: #8995AE;
+    --text-dim: #5E6B85;
+    --blue-light: #9FC5F0;
+    --blue: #5A8FD6;
+    --grad: linear-gradient(135deg, #9FC5F0 0%, #5A8FD6 50%, #2E5A9B 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Geist", -apple-system, sans-serif;
+    background: var(--bg-base);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .grid-bg {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header.top {
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+  header.top .logo {
+    height: 56px;
+    margin: 0 auto 56px;
+    display: block;
+  }
+  header.top .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: "Geist Mono", monospace;
+    font-size: 12px;
+    color: var(--blue-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(90, 143, 214, 0.06);
+    margin-bottom: 28px;
+  }
+  header.top .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue-light);
+    box-shadow: 0 0 12px var(--blue-light);
+  }
+  header.top h1 {
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin: 0 0 24px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #B4C5E0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header.top h1 em {
+    font-style: normal;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header.top p.lead {
+    font-size: 19px;
+    color: var(--text-mute);
+    max-width: 620px;
+    margin: 0 auto 0;
+    line-height: 1.55;
+  }
+
+  /* Version cards */
+  .versions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 60px 0 80px;
+  }
+  .v-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .v-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border);
+    box-shadow: 0 30px 80px rgba(46, 90, 155, 0.25);
+  }
+  .v-thumb {
+    aspect-ratio: 16 / 11;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-soft);
+    background: var(--bg-deep);
+  }
+
+  /* Thumb 1 — Linear/Vercel minimalist */
+  .thumb-1 {
+    background: var(--bg-deep);
+    padding: 22px 28px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .thumb-1 .row { display: flex; gap: 10px; justify-content: space-between; align-items: center; font-size: 9px; color: var(--text-dim); }
+  .thumb-1 .row .lg { width: 38px; height: 10px; background: var(--text-mute); border-radius: 2px; }
+  .thumb-1 .row .menu { display: flex; gap: 10px; }
+  .thumb-1 h2 { font-size: 28px; font-weight: 500; line-height: 1.05; letter-spacing: -0.02em; margin: 6px 0 4px; }
+  .thumb-1 h2 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .thumb-1 .l { font-size: 11px; color: var(--text-mute); margin: 0; }
+  .thumb-1 .ctas { display: flex; gap: 6px; margin-top: 6px; }
+  .thumb-1 .btn-s { font-size: 9px; padding: 5px 10px; border-radius: 6px; background: white; color: var(--bg-deep); font-weight: 500; }
+  .thumb-1 .btn-s.g { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .thumb-1 .grid-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: 8px; margin-top: auto; }
+  .thumb-1 .grid-mini > div { background: var(--bg-base); padding: 10px; min-height: 50px; display: flex; flex-direction: column; gap: 4px; }
+  .thumb-1 .ico-s { width: 14px; height: 14px; border-radius: 4px; background: rgba(90,143,214,0.15); border: 1px solid rgba(90,143,214,0.25); }
+  .thumb-1 .nm-s { font-size: 9px; font-weight: 500; }
+  .thumb-1 .ds-s { font-size: 7px; color: var(--text-mute); }
+
+  /* Thumb 2 — Apple Premium */
+  .thumb-2 {
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 20%, rgba(106, 156, 222, 0.18), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(46, 90, 155, 0.3), transparent 70%),
+      var(--bg-deep);
+    padding: 18px 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    text-align: center;
+  }
+  .thumb-2 .eb { font-size: 8px; color: var(--blue-light); text-transform: uppercase; letter-spacing: 0.15em; }
+  .thumb-2 h2 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin: 0;
+    background: linear-gradient(180deg, white, #88A6D8);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .thumb-2 h2 em { font-style: italic; color: #B9D6F5; -webkit-text-fill-color: #B9D6F5; }
+  .thumb-2 .ll { font-size: 9px; color: var(--text-mute); max-width: 220px; margin: 0; }
+  .thumb-2 .btn-r { font-size: 9px; padding: 6px 14px; border-radius: 999px; background: white; color: var(--bg-deep); font-weight: 500; margin-top: 4px; }
+  .thumb-2 .product-mini {
+    margin-top: 6px;
+    width: 92%;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(106,156,222,0.2), rgba(106,156,222,0.04));
+    padding: 4px;
+    box-shadow: 0 8px 24px rgba(46,90,155,0.4);
+  }
+  .thumb-2 .product-inner {
+    background: var(--bg-deep);
+    border-radius: 6px;
+    aspect-ratio: 16/8;
+    border: 1px solid var(--border);
+    display: grid; grid-template-columns: 50px 1fr; gap: 4px; padding: 4px;
+  }
+  .thumb-2 .pi-side { display: flex; flex-direction: column; gap: 3px; }
+  .thumb-2 .pi-row { height: 6px; background: rgba(106,156,222,0.15); border-radius: 2px; }
+  .thumb-2 .pi-row.a { background: var(--blue); }
+  .thumb-2 .pi-main { display: flex; flex-direction: column; gap: 3px; padding: 3px; }
+  .thumb-2 .pi-st { display: flex; gap: 3px; }
+  .thumb-2 .pi-st > div { flex: 1; height: 16px; background: var(--border); border-radius: 2px; }
+  .thumb-2 .pi-chat { flex: 1; background: rgba(15,26,46,0.5); border-radius: 3px; padding: 3px; display: flex; flex-direction: column; gap: 2px; }
+  .thumb-2 .pi-msg { height: 4px; border-radius: 2px; background: var(--border); }
+  .thumb-2 .pi-msg.us { background: var(--blue); align-self: flex-end; width: 60%; }
+  .thumb-2 .pi-msg.tm { width: 70%; }
+
+  /* Thumb 3 — BR SaaS dashboard */
+  .thumb-3 {
+    background:
+      radial-gradient(circle 200px at 20% 30%, rgba(90,143,214,0.12), transparent 70%),
+      radial-gradient(circle 180px at 80% 80%, rgba(46,90,155,0.2), transparent 70%),
+      var(--bg-deep);
+    padding: 16px 18px;
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 12px;
+  }
+  .thumb-3 .left { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .thumb-3 .badge {
+    display: inline-flex; gap: 5px; align-items: center;
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.25);
+    color: #4ADE80;
+    padding: 2px 7px; border-radius: 999px;
+    font-size: 8px; font-weight: 600;
+    align-self: flex-start;
+  }
+  .thumb-3 .badge::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: #4ADE80; }
+  .thumb-3 h2 { font-family: "Manrope", sans-serif; font-size: 21px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin: 0; }
+  .thumb-3 h2 .h { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .thumb-3 .ll { font-size: 9px; color: var(--text-mute); margin: 0; line-height: 1.45; }
+  .thumb-3 .ctas { display: flex; gap: 4px; margin-top: 4px; }
+  .thumb-3 .b1 { background: var(--blue); color: white; font-size: 8px; padding: 5px 8px; border-radius: 4px; font-weight: 600; }
+  .thumb-3 .b2 { background: #25D366; color: white; font-size: 8px; padding: 5px 8px; border-radius: 4px; font-weight: 600; }
+
+  .thumb-3 .dash {
+    background: rgba(18,32,54,0.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .thumb-3 .d-h { display: flex; justify-content: space-between; align-items: center; }
+  .thumb-3 .d-h .tt { font-size: 8px; font-weight: 600; }
+  .thumb-3 .d-h .dot-g { width: 5px; height: 5px; background: #4ADE80; border-radius: 50%; }
+  .thumb-3 .d-st { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  .thumb-3 .d-st > div { padding: 4px 5px; background: rgba(26,42,71,0.6); border: 1px solid var(--border); border-radius: 4px; }
+  .thumb-3 .d-st .v { font-size: 11px; font-weight: 700; letter-spacing: -0.02em; }
+  .thumb-3 .d-st .l { font-size: 6px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+  .thumb-3 .d-bars { display: flex; gap: 2px; align-items: flex-end; height: 28px; }
+  .thumb-3 .d-bars > div { flex: 1; background: var(--grad); border-radius: 1px 1px 0 0; opacity: 0.85; }
+
+  .v-body {
+    padding: 28px 28px 32px;
+    display: flex; flex-direction: column; gap: 16px; flex: 1;
+  }
+  .v-tag {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    color: var(--blue-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .v-card h3 {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .v-card p {
+    color: var(--text-mute);
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .v-meta {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .v-meta span {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    background: var(--bg-base);
+    border: 1px solid var(--border-soft);
+    padding: 4px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .v-cta {
+    display: inline-flex; align-items: center; justify-content: space-between;
+    margin-top: 6px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: var(--bg-base);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all .18s;
+  }
+  .v-card:hover .v-cta {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+  }
+  .v-cta .arrow { transition: transform .2s; }
+  .v-card:hover .v-cta .arrow { transform: translateX(4px); }
+
+  /* Notes */
+  section.notes {
+    padding: 40px 0 100px;
+    border-top: 1px solid var(--border-soft);
+    margin-top: 20px;
+  }
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    padding-top: 40px;
+  }
+  .notes-grid .num {
+    font-family: "Geist Mono", monospace;
+    font-size: 12px;
+    color: var(--blue-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .notes-grid h2 {
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+    max-width: 300px;
+  }
+  .notes-list { display: flex; flex-direction: column; gap: 20px; }
+  .note-item {
+    padding: 24px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--bg-elev);
+  }
+  .note-item h4 { font-size: 16px; font-weight: 500; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .note-item p { font-size: 14px; color: var(--text-mute); margin: 0; line-height: 1.6; }
+  .note-item h4 .lbl {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    color: var(--blue-light);
+    margin-right: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  footer.bot {
+    padding: 24px 0 48px;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-family: "Geist Mono", monospace;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 880px) {
+    .versions { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="top">
+  <div class="wrap">
+    <img src="assets/kora-logo.jpg" alt="Kora Hub" class="logo" />
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Exploração de design · 3 direções</span>
+    </div>
+    <h1>Três caminhos para o<br/>site da <em>Kora Hub.</em></h1>
+    <p class="lead">Cada direção mantém a paleta dark navy + azul metálico da sua logo, com a logo centralizada no topo. Mudam o estilo tipográfico, a densidade e a personalidade.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="versions">
+
+    <!-- V1 -->
+    <a class="v-card" href="v1-linear.html">
+      <div class="v-thumb">
+        <div class="thumb-1">
+          <div class="row">
+            <div class="menu"><span>Soluções</span><span>Integrações</span></div>
+            <div class="lg"></div>
+            <div class="menu"><span>Sobre</span><span style="padding: 2px 6px; background: var(--blue); color: white; border-radius: 3px;">WhatsApp</span></div>
+          </div>
+          <div>
+            <h2>Conecte seu ERP<br/>com <em>IA</em></h2>
+            <p class="l">Chats, WhatsApp, marketplaces e ERP em uma camada inteligente.</p>
+            <div class="ctas">
+              <span class="btn-s">Falar com especialista</span>
+              <span class="btn-s g">Ver soluções</span>
+            </div>
+          </div>
+          <div class="grid-mini">
+            <div><div class="ico-s"></div><div class="nm-s">Chat IA</div><div class="ds-s">Atendimento autônomo</div></div>
+            <div><div class="ico-s"></div><div class="nm-s">WhatsApp</div><div class="ds-s">Canal principal</div></div>
+            <div><div class="ico-s"></div><div class="nm-s">Marketplaces</div><div class="ds-s">Multi-canal</div></div>
+            <div><div class="ico-s"></div><div class="nm-s">ERP</div><div class="ds-s">Núcleo</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="v-body">
+        <div class="v-tag">V1 · Linear / Vercel</div>
+        <h3>Tech minimalista</h3>
+        <p>Grid estreito, microinterações sutis, hierarquia tipográfica forte. Mensagem clara, sem ruído. Bom para posicionar a Kora como plataforma "developer-friendly" e moderna.</p>
+        <div class="v-meta">
+          <span>Geist</span>
+          <span>Mono accents</span>
+          <span>Dark</span>
+          <span>Single column</span>
+        </div>
+        <div class="v-cta">
+          <span>Abrir versão</span>
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- V2 -->
+    <a class="v-card" href="v2-apple.html">
+      <div class="v-thumb">
+        <div class="thumb-2">
+          <span class="eb">Plataforma de integração com IA</span>
+          <h2>A inteligência<br/>por trás da<br/><em>sua operação.</em></h2>
+          <p class="ll">Chats, WhatsApp, marketplaces e ERP unidos em uma camada só.</p>
+          <span class="btn-r">Falar no WhatsApp</span>
+          <div class="product-mini">
+            <div class="product-inner">
+              <div class="pi-side">
+                <div class="pi-row a"></div>
+                <div class="pi-row"></div>
+                <div class="pi-row"></div>
+                <div class="pi-row"></div>
+              </div>
+              <div class="pi-main">
+                <div class="pi-st"><div></div><div></div><div></div></div>
+                <div class="pi-chat">
+                  <div class="pi-msg tm"></div>
+                  <div class="pi-msg us"></div>
+                  <div class="pi-msg tm"></div>
+                  <div class="pi-msg us"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-body">
+        <div class="v-tag">V2 · Apple Premium</div>
+        <h3>Editorial cinemático</h3>
+        <p>Tipografia gigante em serif itálico, full-bleed, momentos com pausas. Posiciona a Kora como produto premium e de design forte. Boa para reuniões com clientes enterprise.</p>
+        <div class="v-meta">
+          <span>Instrument Serif</span>
+          <span>Inter Tight</span>
+          <span>Full-bleed</span>
+          <span>Mockups</span>
+        </div>
+        <div class="v-cta">
+          <span>Abrir versão</span>
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- V3 -->
+    <a class="v-card" href="v3-saas.html">
+      <div class="v-thumb">
+        <div class="thumb-3">
+          <div class="left">
+            <span class="badge">+180 empresas</span>
+            <h2>IA que <span class="h">conecta</span> seu ERP e WhatsApp.</h2>
+            <p class="ll">Mercado Livre, Shopee, VTEX, Tiny, Bling e o canal preferido do BR.</p>
+            <div class="ctas">
+              <span class="b1">Agendar demo</span>
+              <span class="b2">WhatsApp</span>
+            </div>
+          </div>
+          <div class="dash">
+            <div class="d-h">
+              <span class="tt">Kora · Visão geral</span>
+              <span class="dot-g"></span>
+            </div>
+            <div class="d-st">
+              <div><div class="v">3.247</div><div class="l">Conv.</div></div>
+              <div><div class="v">82%</div><div class="l">IA</div></div>
+              <div><div class="v">184k</div><div class="l">Vendas</div></div>
+            </div>
+            <div class="d-bars">
+              <div style="height: 30%"></div>
+              <div style="height: 45%"></div>
+              <div style="height: 35%"></div>
+              <div style="height: 60%"></div>
+              <div style="height: 75%"></div>
+              <div style="height: 90%"></div>
+              <div style="height: 80%"></div>
+              <div style="height: 65%"></div>
+              <div style="height: 55%"></div>
+              <div style="height: 45%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-body">
+        <div class="v-tag">V3 · BR SaaS</div>
+        <h3>Conversion-focused</h3>
+        <p>Mais denso, dashboard mockup, social proof rico, badges de confiança, formulário no hero. Estilo "landing brasileira" do RD Station — pensado para conversão direta.</p>
+        <div class="v-meta">
+          <span>Manrope</span>
+          <span>Dashboard mock</span>
+          <span>Form no hero</span>
+          <span>Comparação</span>
+        </div>
+        <div class="v-cta">
+          <span>Abrir versão</span>
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+
+  </section>
+
+  <section class="notes">
+    <div class="notes-grid">
+      <div>
+        <div class="num">— Notas</div>
+        <h2>Decisões que foram tomadas</h2>
+      </div>
+      <div class="notes-list">
+        <div class="note-item">
+          <h4><span class="lbl">Logo</span>Sempre centralizada no topo.</h4>
+          <p>Em todas as 3 versões a logo aparece no centro do header — entre os menus de navegação à esquerda e o CTA principal à direita. Em telas pequenas, o menu da esquerda colapsa primeiro, mantendo logo e CTA visíveis.</p>
+        </div>
+        <div class="note-item">
+          <h4><span class="lbl">Paleta</span>Mantida a paleta da logo.</h4>
+          <p>Dark navy (#0B1426) como base, azul metálico em gradiente (#9FC5F0 → #5A8FD6 → #2E5A9B) como acento. Reservado verde só para o badge do WhatsApp.</p>
+        </div>
+        <div class="note-item">
+          <h4><span class="lbl">Integrações</span>Wordmarks tipográficos, não logos.</h4>
+          <p>Para evitar problemas de uso de marca de terceiros, as integrações (WhatsApp, Mercado Livre, VTEX, Tray, Shopee, Tiny, Bling) aparecem como wordmarks tipográficos limpos. Quando você tiver autorização ou os SVGs oficiais, é só substituir.</p>
+        </div>
+        <div class="note-item">
+          <h4><span class="lbl">Conteúdo</span>Copy, números e depoimentos são placeholders.</h4>
+          <p>Os depoimentos, métricas (+312%, −68%, +24%, 2.1×) e CNPJ são exemplos para você substituir pelo conteúdo real. A estrutura está pronta — basta editar diretamente os textos no preview.</p>
+        </div>
+        <div class="note-item">
+          <h4><span class="lbl">Próximo passo</span>Escolha uma direção, ou misture.</h4>
+          <p>Você pode pegar elementos de mais de uma versão — por exemplo, hero da V2, integrações da V3, footer da V1. Me fala qual direção quer aprofundar e eu detalho.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="bot">
+  © 2026 · Kora Hub · Exploração de design
+</footer>
+
+</body>
+</html>
